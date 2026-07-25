@@ -1,0 +1,992 @@
+/* ═══════════════════════════════════════════════
+   ADMIN PANEL - Excel/Spreadsheet Style
+   ═══════════════════════════════════════════════ */
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  border-bottom: 2px solid #333333;
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.admin-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.admin-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.admin-actions .btn-ghost {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 0;
+  border: 1px solid #888888;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #ffffff;
+  color: #333333;
+}
+
+.admin-actions .btn-ghost:hover {
+  background: #eaeaea;
+  border-color: #333333;
+}
+
+/* ── Dashboard Metrics Grid ── */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: none;
+}
+
+.stat-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.stat-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #f8f9fa;
+  color: #555555;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.stat-icon-wrapper.blue,
+.stat-icon-wrapper.purple,
+.stat-icon-wrapper.green,
+.stat-icon-wrapper.red {
+  background: #f8f9fa;
+  color: #333333;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #000000;
+}
+
+/* ── Advanced Filters Panel ── */
+.admin-filters-card {
+  background: #ffffff !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0 !important;
+  padding: var(--space-md) !important;
+  box-shadow: none !important;
+}
+
+.admin-filters-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: var(--space-md);
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.filter-group label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #444444;
+  margin-bottom: 0;
+}
+
+.filter-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 10px;
+  color: #666;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.filter-input-wrapper input {
+  padding: 6px 6px 6px 30px;
+  border: none;
+  border-radius: 0;
+  height: 32px;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.filter-input-wrapper input:focus {
+  box-shadow: none;
+}
+
+.admin-filters-grid select,
+.admin-filters-grid input[type="date"] {
+  height: 32px;
+  padding: 4px 8px;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.admin-filters-grid select:focus,
+.admin-filters-grid input[type="date"]:focus {
+  background-color: #e8f0fe;
+  box-shadow: none;
+}
+
+.filter-action-group {
+  display: flex;
+  align-items: flex-end;
+  height: 32px;
+}
+
+.btn-clear-filters {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 10px !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  color: #555555;
+}
+
+.btn-clear-filters:hover {
+  background: #fff5f5 !important;
+  color: var(--danger) !important;
+  border-color: #f5c2c2 !important;
+}
+
+@media (max-width: 992px) {
+  .admin-filters-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .filter-action-group {
+    grid-column: span 2;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-filters-grid {
+    grid-template-columns: 1fr;
+  }
+  .filter-action-group {
+    grid-column: span 1;
+    justify-content: stretch;
+  }
+}
+
+/* ── Bills Table ── */
+.table-wrapper {
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.bills-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.bills-table thead {
+  background: #e9ecef;
+}
+
+.bills-table th {
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #333333;
+  border: 1px solid #ced4da;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.bills-table th:hover {
+  background: #dfe2e5;
+  color: #000000;
+}
+
+.bills-table th svg {
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+.bills-table td {
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  color: #212529;
+}
+
+.bills-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.bill-number-cell {
+  font-weight: 700;
+  color: #1976d2 !important;
+  font-size: 0.75rem;
+}
+
+.client-name-cell {
+  font-weight: 600;
+  color: #000000 !important;
+}
+
+.amount-cell {
+  font-weight: 700;
+  color: #000000 !important;
+  text-align: right;
+}
+
+.vehicle-badge {
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  padding: 2px 6px;
+  border-radius: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* ── Payment Badges (Excel style cell formatting) ── */
+.payment-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+  border: 1px solid transparent;
+  width: 75px;
+  text-transform: uppercase;
+}
+
+.badge-success {
+  background: #e6f4ea;
+  color: #137333;
+  border-color: #137333;
+}
+
+.badge-info {
+  background: #e8f0fe;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.badge-warning {
+  background: #fef7e0;
+  color: #b06000;
+  border-color: #b06000;
+}
+
+.badge-danger {
+  background: #fce8e6;
+  color: #c5221f;
+  border-color: #c5221f;
+}
+
+/* ── Action Buttons ── */
+.action-btns {
+  display: flex;
+  gap: 3px;
+}
+
+.action-btn {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  color: #555555;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.action-btn.view:hover {
+  background: #e8f0fe;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.action-btn.print:hover {
+  background: #e8f0fe;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.action-btn.edit:hover {
+  background: #fef7e0;
+  color: #b06000;
+  border-color: #b06000;
+}
+
+.action-btn.delete:hover {
+  background: #fce8e6;
+  color: #c5221f;
+  border-color: #c5221f;
+}
+
+/* ── Loading / Empty ── */
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl);
+  gap: var(--space-md);
+  background: #ffffff;
+  border: 1px solid #ced4da;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #ced4da;
+  border-top-color: #1976d2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #333333;
+}
+
+.empty-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-lg);
+  animation: fadeIn 0.15s ease;
+}
+
+.modal-content {
+  background: #ffffff;
+  border: 2px solid #111111;
+  border-radius: 0;
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: none;
+  animation: slideUp 0.15s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md);
+  border-bottom: 2px solid #333333;
+  background: #f8f9fa;
+}
+
+.modal-header h2 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.modal-close {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  color: #333333;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: #fce8e6;
+  color: #c5221f;
+  border-color: #c5221f;
+}
+
+.modal-body {
+  padding: var(--space-md);
+}
+
+/* ── Detail Grid / Sheet Layout ── */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  margin-bottom: var(--space-md);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ced4da;
+  border-right: 1px solid #ced4da;
+}
+
+.detail-grid .detail-item:nth-child(even) {
+  border-right: none;
+}
+
+.detail-grid .detail-item:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #444444;
+  background: #f2f2f2;
+  padding: 6px 8px;
+  text-transform: uppercase;
+  width: 40%;
+  border-right: 1px solid #ced4da;
+  white-space: nowrap;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.detail-value {
+  font-size: 0.8rem;
+  color: #000000;
+  font-weight: 600;
+  padding: 6px 8px;
+  width: 60%;
+}
+
+/* ── Items detail table ── */
+.items-detail-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.items-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin-bottom: var(--space-md);
+}
+
+.items-detail-table th {
+  text-align: left;
+  padding: 6px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+}
+
+.items-detail-table td {
+  padding: 6px 8px;
+  border: 1px solid #ced4da;
+  color: #000000;
+}
+
+.item-total-cell {
+  font-weight: 700;
+  color: #000000 !important;
+}
+
+/* ── Modal Total ── */
+.modal-total-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-lg);
+  padding: 8px;
+  border: 1px solid #ced4da;
+  background: #f8f9fa;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #000000;
+  margin-bottom: var(--space-md);
+}
+
+.modal-total-value {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #000000;
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+}
+
+.modal-payment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #ced4da;
+  padding-top: var(--space-md);
+}
+
+.modal-payment-info .btn-primary {
+  border-radius: 0;
+  border: 1px solid #111111;
+  background: #333333;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.modal-payment-info .btn-primary:hover {
+  background: #000000;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Edit Modal ── */
+.edit-modal {
+  max-width: 600px;
+}
+
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.edit-grid .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-grid .form-group label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #333333;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.edit-grid .form-group input,
+.edit-grid .form-group select {
+  height: 32px;
+  padding: 4px 8px;
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.edit-grid .form-group input:focus,
+.edit-grid .form-group select:focus {
+  background-color: #e8f0fe;
+  box-shadow: none;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+  padding-top: var(--space-md);
+  border-top: 2px solid #333333;
+}
+
+.edit-actions .btn-ghost {
+  border-radius: 0;
+  border: 1px solid #ced4da;
+  background: #ffffff;
+  color: #333333;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.edit-actions .btn-ghost:hover {
+  background: #eaeaea;
+}
+
+.edit-actions .btn-primary {
+  border-radius: 0;
+  border: 1px solid #111111;
+  background: #333333;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.edit-actions .btn-primary:hover {
+  background: #000000;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .bills-table {
+    font-size: 0.8rem;
+  }
+  .bills-table th,
+  .bills-table td {
+    padding: 6px 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  .bills-table {
+    min-width: 700px;
+  }
+  .detail-grid,
+  .edit-grid {
+    grid-template-columns: 1fr;
+  }
+  .detail-grid .detail-item {
+    border-right: none;
+  }
+  .detail-grid .detail-item:nth-last-child(2) {
+    border-bottom: 1px solid #ced4da;
+  }
+  .modal-content {
+    max-height: 90vh;
+  }
+}
+
+/* ── Print Styles (Excel style invoice sheet) ── */
+#print-area {
+  display: none;
+}
+
+@media print {
+  /* Hide all elements inside React app */
+  #root, .navbar, .app-layout, .admin-panel, .modal-overlay {
+    display: none !important;
+  }
+
+  /* Show only the print area portal container */
+  #print-area {
+    display: block !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 5px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  /* Header */
+  #print-area .bill-header {
+    background: #ffffff;
+    border-bottom: 2px solid #333333;
+    padding: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  #print-area .business-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+  }
+
+  #print-area .business-tagline {
+    font-size: 11px;
+    color: #555555;
+    margin-top: 3px;
+  }
+
+  #print-area .bill-header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+  }
+
+  #print-area .header-contact {
+    font-size: 11px;
+    color: #333333;
+  }
+
+  /* Client Grid Table */
+  #print-area .excel-grid-table,
+  #print-area .excel-grid-table tbody,
+  #print-area .excel-grid-table tr,
+  #print-area .excel-grid-table td {
+    display: table !important;
+  }
+
+  #print-area .excel-grid-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 15px !important;
+  }
+
+  #print-area .excel-grid-table tbody {
+    display: table-row-group !important;
+  }
+
+  #print-area .excel-grid-table tr {
+    display: table-row !important;
+  }
+
+  #print-area .excel-grid-table td {
+    display: table-cell !important;
+    flex: none !important;
+    border: 1px solid #999999 !important;
+    padding: 3px 3px !important;
+    font-size: 12px !important;
+  }
+
+  #print-area .excel-label {
+    background-color: #f2f2f2 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #333333;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  #print-area .excel-value {
+    color: #000000;
+    font-weight: 600;
+  }
+
+  /* Items Table */
+  #print-area .excel-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+
+  #print-area .excel-items-table th {
+    background-color: #e9ecef !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color: #333333;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #999999;
+    padding: 3px 4px;
+    text-transform: uppercase;
+  }
+
+  #print-area .excel-items-table td {
+    border: 1px solid #999999;
+    font-size: 11px;
+    color: #000000;
+  }
+
+  #print-area .row-number {
+    background: #f8f9fa !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  #print-area .text-right {
+    text-align: right;
+  }
+
+  #print-area .item-total-cell {
+    font-weight: 700;
+  }
+
+  /* Grand Total */
+  #print-area .grand-total-row td {
+    font-weight: 700;
+    padding: 8px !important;
+  }
+
+  #print-area .label-total {
+    background: #f8f9fa !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    text-transform: uppercase;
+  }
+
+  #print-area .value-total {
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  /* Footer & Signature */
+  #print-area .print-footer-simple {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 40px;
+  }
+
+  #print-area .terms-conditions-box {
+    text-align: left;
+    max-width: 60%;
+  }
+
+  #print-area .terms-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #333333;
+    margin-bottom: 4px;
+    margin-top: 0;
+  }
+
+  #print-area .terms-conditions-box ol {
+    margin: 0;
+    padding-left: 14px;
+    font-size: 9px;
+    color: #555555;
+    line-height: 1.4;
+    font-style: normal;
+  }
+
+  #print-area .footer-right-signature {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 30px;
+  }
+
+  #print-area .thank-you-msg {
+    font-size: 11px;
+    color: #555555;
+    font-style: italic;
+    margin: 0;
+  }
+
+  #print-area .signature-area-simple {
+    text-align: center;
+    width: 180px;
+  }
+
+  #print-area .signature-line-simple {
+    border-top: 1px solid #999999;
+    margin-bottom: 8px;
+  }
+
+  #print-area .signature-area-simple p {
+    font-size: 10px;
+    color: #333333;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: normal;
+    margin: 0;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 5mm 5mm;
+  }
+}
