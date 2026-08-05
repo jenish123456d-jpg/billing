@@ -13,7 +13,7 @@ function BillHeader() {
       <div className="bill-header-right">
         <div className="header-contact">
           <FiMapPin className="contact-icon" />
-          <span>SY-12, PLOT NO. 48, NR. KAPADIYAWADI, ALTHAN ROAD, MAHOLLA-2, OPP. AGANWADI, BHATAR, SURAT - 395017</span>
+          <span>33-A, Shop No. S-9, Ravi Apartment, Opp. Swastik Park, Althan-Bhatar Road, Surat – 395017, Gujarat, India</span>
         </div>
         <div className="header-contact">
           <FiPhone className="contact-icon" />
