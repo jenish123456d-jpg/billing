@@ -109,7 +109,8 @@ function BillingPage() {
     const price = parseFloat(item.price) || 0;
     const labour = parseFloat(item.labour) || 0;
     
-    return (qty * price) + (qty * labour);
+    // return (qty * price) + (qty * labour);
+    return  price +  labour;
   };
 
   const grandTotal = items.reduce((sum, item) => sum + getItemTotal(item), 0);

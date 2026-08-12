@@ -43,7 +43,8 @@ function AdminPanel() {
     try {
       const { data, error } = await supabase
         .from("bills")
-        .select(`
+        .select(
+          `
           *,
           clients (
             clientName,
@@ -54,7 +55,8 @@ function AdminPanel() {
             engineNumber,
             chassisNumber
           )
-        `)
+        `,
+        )
         .order("createdAt", { ascending: false });
 
       if (error) throw error;
@@ -87,14 +89,16 @@ function AdminPanel() {
   useEffect(() => {
     if (billToPrint) {
       const originalTitle = document.title;
-      document.title = billToPrint.clientName ? `Invoice - ${billToPrint.clientName}` : "Invoice";
-      
+      document.title = billToPrint.clientName
+        ? `Invoice - ${billToPrint.clientName}`
+        : "Invoice";
+
       const timer = setTimeout(() => {
         window.print();
         document.title = originalTitle;
         setBillToPrint(null);
       }, 150);
-      
+
       return () => {
         clearTimeout(timer);
         document.title = originalTitle;
@@ -126,18 +130,18 @@ function AdminPanel() {
   const handleUpdate = async () => {
     if (!editingBill) return;
     try {
-      const { 
-        billId, 
-        clientId, 
-        clientName, 
-        address, 
-        mobileNumber, 
-        vehicleNumber, 
-        vehicleModel, 
-        engineNumber, 
-        chassisNumber, 
-        kilometer, 
-        paymentMethod 
+      const {
+        billId,
+        clientId,
+        clientName,
+        address,
+        mobileNumber,
+        vehicleNumber,
+        vehicleModel,
+        engineNumber,
+        chassisNumber,
+        kilometer,
+        paymentMethod,
       } = editingBill;
 
       // Update client profile in Supabase
@@ -170,7 +174,7 @@ function AdminPanel() {
 
       if (updatedBills && updatedBills.length > 0) {
         showToast("Bill updated successfully");
-        
+
         // Re-construct the full flattened bill object to update frontend list state
         const fullyUpdatedBill = {
           ...editingBill,
@@ -181,7 +185,7 @@ function AdminPanel() {
           vehicleNumber: vehicleNumber.toUpperCase(),
           vehicleModel,
           engineNumber,
-          chassisNumber
+          chassisNumber,
         };
 
         setBills((prev) =>
@@ -229,19 +233,27 @@ function AdminPanel() {
       if (searchTerm.trim()) {
         const term = searchTerm.toLowerCase();
         const cleanTerm = term.replace(/[^a-z0-9]/g, "");
-        const cleanVehicle = String(b.vehicleNumber || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-        
+        const cleanVehicle = String(b.vehicleNumber || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "");
+
         const matchesSearch =
-          String(b.billNumber || "").toLowerCase().includes(term) ||
-          String(b.clientName || "").toLowerCase().includes(term) ||
+          String(b.billNumber || "")
+            .toLowerCase()
+            .includes(term) ||
+          String(b.clientName || "")
+            .toLowerCase()
+            .includes(term) ||
           (cleanTerm && cleanVehicle.includes(cleanTerm)) ||
-          String(b.vehicleNumber || "").toLowerCase().includes(term) ||
+          String(b.vehicleNumber || "")
+            .toLowerCase()
+            .includes(term) ||
           String(b.mobileNumber || "").includes(term);
         if (!matchesSearch) return false;
       }
       // Payment Method Filter
       if (filterPayment !== "All") {
-        console.log("==========>",b.paymentMethod,filterPayment);
+        console.log("==========>", b.paymentMethod, filterPayment);
         if (b.paymentMethod == "Pending") return false;
       }
       // Start Date Filter
@@ -271,7 +283,10 @@ function AdminPanel() {
     });
 
   // ── Dynamic Dashboard KPI calculations ──
-  const totalRevenue = filteredBills.reduce((sum, b) => sum + (parseFloat(b.totalAmount) || 0), 0);
+  const totalRevenue = filteredBills.reduce(
+    (sum, b) => sum + (parseFloat(b.totalAmount) || 0),
+    0,
+  );
   const totalCollected = filteredBills
     .filter((b) => b.paymentMethod !== "Pending")
     .reduce((sum, b) => sum + (parseFloat(b.totalAmount) || 0), 0);
@@ -285,7 +300,7 @@ function AdminPanel() {
       UPI: "badge-info",
       Cash: "badge-success",
       Cheque: "badge-warning",
-      "Pending": "badge-danger",
+      Pending: "badge-danger",
     };
     return map[method] || "badge-default";
   };
@@ -402,7 +417,10 @@ function AdminPanel() {
           </div>
 
           <div className="filter-action-group">
-            {(searchTerm || filterPayment !== "All" || filterStartDate || filterEndDate) && (
+            {(searchTerm ||
+              filterPayment !== "All" ||
+              filterStartDate ||
+              filterEndDate) && (
               <button
                 className="btn-ghost btn-clear-filters"
                 onClick={() => {
@@ -591,10 +609,14 @@ function AdminPanel() {
                     {selectedBill.chassisNumber || "—"}
                   </span>
                 </div>
-                 <div className="detail-item" style={{ gridColumn: "span 2" }}>
-                   <span className="detail-label" style={{ width: "20%" }}>Date</span>
-                    <span className="detail-value" style={{ width: "80%" }}>{formatDate(selectedBill.date)}</span>
-                 </div>
+                <div className="detail-item" style={{ gridColumn: "span 2" }}>
+                  <span className="detail-label" style={{ width: "20%" }}>
+                    Date
+                  </span>
+                  <span className="detail-value" style={{ width: "80%" }}>
+                    {formatDate(selectedBill.date)}
+                  </span>
+                </div>
               </div>
 
               <h3 className="items-detail-title">Items</h3>
@@ -741,7 +763,7 @@ function AdminPanel() {
                     }
                   />
                 </div>
-                 <div className="form-group">
+                <div className="form-group">
                   <label>KMs.</label>
                   <input
                     type="text"
@@ -818,10 +840,11 @@ function AdminPanel() {
       {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
 
       {/* ── Hidden Printable Invoice ── */}
-      {billToPrint && createPortal(
-        <div id="print-area">
-          {/* Header */}
-          <div className="bill-header">
+      {billToPrint &&
+        createPortal(
+          <div id="print-area">
+            {/* Header */}
+            {/* <div className="bill-header">
             <div className="bill-header-left">
               <div className="bill-header-info">
                 <h1 className="business-name">SHREEJI MOTORS</h1>
@@ -839,133 +862,315 @@ function AdminPanel() {
                 <span>SHASHIKANT LAD: +91 97143 16888</span>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          {/* Client Details / Metadata Table */}
-          <div className="excel-client-section">
-            <table className="excel-grid-table">
-              <tbody>
-                <tr>
-                  <td className="excel-label" style={{ width: "15%" }}>Client Name</td>
-                  <td className="excel-value" colSpan="3" style={{ width: "50%" }}>
-                    {billToPrint.clientName}
-                  </td>
-                  <td className="excel-label" style={{ width: "15%" }}>Date</td>
-                  <td className="excel-value" style={{ width: "20%" }}>
-                    {formatDate(billToPrint.date)}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="excel-label">Mobile Number</td>
-                  <td className="excel-value" style={{ width: "18%" }}>
-                    {billToPrint.mobileNumber}
-                  </td>
-                  <td className="excel-label" style={{ width: "15%" }}>Address</td>
-                  <td className="excel-value" colSpan="3">
-                    {billToPrint.address || "—"}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="excel-label">Vehicle Number</td>
-                  <td className="excel-value">
-                    {billToPrint.vehicleNumber}
-                  </td>
-                  <td className="excel-label">Vehicle Model</td>
-                  <td className="excel-value">
-                    {billToPrint.vehicleModel || "—"}
-                  </td>
-                  <td className="excel-label">Kilometer</td>
-                  <td className="excel-value">
-                    {billToPrint.kilometer || "—"}
-                  </td>
-                </tr>
-                 <tr>
-                  <td className="excel-label">Eng. No.</td>
-                  <td className="excel-value">
-                    {billToPrint.engineNumber || "—"}
-                  </td>
-                  <td className="excel-label">Ch. No.</td>
-                  <td className="excel-value">
-                    {billToPrint.chassisNumber || "—"}
-                  </td>
-                  <td className="excel-label">Payment Type</td>
-                  <td className="excel-value" style={{ fontWeight: "bold" }}>
-                    {billToPrint.paymentMethod}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="excel-label" style={{ width: "15%" }}>Invoice No</td>
-                  <td className="excel-value" colSpan="5">
-                    {billToPrint.billNumber}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+           <div
+  style={{
+    width: "100%",
+    borderBottom: "3px solid #E31E24",
+    paddingBottom: "10px",
+    fontFamily: "Arial, sans-serif",
+  }}
+>
+  {/* First Line - Logo + Company Name + Mobile */}
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
+      minHeight: "75px",
+    }}
+  >
+    {/* Logo */}
+    <div
+      style={{
+        width: "120px",
+        minWidth: "120px",
+        textAlign: "center",
+        paddingTop:"50px"
+      }}
+    >
+      <img
+        src={"/logo.png"}
+        alt="SHREEJI MOTORS"
+        style={{
+          width: "105px",
+          height: "70px",
+          objectFit: "contain",
+        }}
+      />
+    </div>
 
-          {/* Items Table */}
-          <div className="excel-items-section">
-            <table className="excel-items-table">
-              <thead>
-                <tr>
-                  <th style={{ width: "40px", textAlign: "center" }}>No.</th>
-                  <th>Item Name</th>
-                  <th style={{ width: "80px", textAlign: "right" }}>Qty</th>
-                  <th style={{ width: "120px", textAlign: "right" }}>Spare Amount</th>
-                  <th style={{ width: "120px", textAlign: "right" }}>Labour</th>
-                  {/* <th style={{ width: "120px", textAlign: "right" }}>Total (₹)</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {(billToPrint.items || []).map((item, index) => (
-                  <tr key={index}>
-                    <td className="row-number">{index + 1}</td>
-                    <td style={{ padding: "6px 8px" }}>{item.itemName}</td>
-                    <td className="text-right" style={{ padding: "6px 8px" }}>{item.quantity}</td>
-                    <td className="text-right" style={{ padding: "6px 8px" }}>₹{parseFloat(item.price || 0).toFixed(2)}</td>
-                    <td className="text-right" style={{ padding: "6px 8px" }}>₹{parseFloat(item.labour || 0).toFixed(2)}</td>
-                    {/* <td className="item-total-cell text-right" style={{ padding: "6px 8px" }}>
+    {/* Company Name */}
+    <div
+      style={{
+        flex: 1,
+        textAlign: "left",
+        paddingLeft: "10px",
+      }}
+    >
+      <h1
+        style={{
+          margin: "0",
+          padding: "0",
+          fontSize: "30px",
+          fontWeight: "bold",
+          letterSpacing: "1.5px",
+          color: "#172B4D",
+          lineHeight: "1.2",
+        }}
+      >
+        SHREEJI <span style={{ color: "#E31E24" }}>MOTORS</span>
+      </h1>
+
+      <p
+        style={{
+          margin: "4px 0 0 0",
+          fontSize: "11px",
+          fontWeight: "bold",
+          letterSpacing: "0.5px",
+          color: "#555555",
+        }}
+      >
+        Complete Vehicle Care & Solutions
+      </p>
+    </div>
+
+    {/* Mobile Numbers */}
+    <div
+      style={{
+        width: "210px",
+        minWidth: "210px",
+        textAlign: "left",
+        borderLeft: "2px solid #E31E24",
+        paddingLeft: "12px",
+      }}
+    >
+      <div
+        style={{
+          fontSize: "11px",
+          fontWeight: "bold",
+          color: "#172B4D",
+          marginBottom: "6px",
+        }}
+      >
+        HASMUKH PATEL:{" "}
+        <span style={{ color: "#E31E24" }}>+91 99248 43345</span>
+      </div>
+
+      <div
+        style={{
+          fontSize: "11px",
+          fontWeight: "bold",
+          color: "#172B4D",
+        }}
+      >
+        SHASHIKANT LAD:{" "}
+        <span style={{ color: "#E31E24" }}>+91 97143 16888</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Second Line - Address starts after Logo */}
+  <div
+    style={{
+      display: "flex",
+      width: "100%",
+      marginTop: "4px",
+    }}
+  >
+    {/* Empty space equal to Logo width */}
+    <div
+      style={{
+        width: "120px",
+        minWidth: "120px",
+      }}
+    ></div>
+
+    {/* Address */}
+    <div
+      style={{
+        flex: 1,
+        paddingLeft: "10px",
+        paddingTop: "5px",
+        borderTop: "1px solid #D9D9D9",
+        fontSize: "9px",
+        lineHeight: "1.5  ",
+        color: "#444444",
+      }}
+    >
+      <span
+        style={{
+          fontWeight: "bold",
+          color: "#E31E24",
+        }}
+      >
+        ADDRESS:
+      </span>{" "}
+      33-A, Shop No. S-9, Ravi Apartment, Opp. Swastik Park,
+      Althan-Bhatar Road, Surat – 395017, Gujarat, India
+    </div>
+  </div>
+</div>
+
+            {/* Client Details / Metadata Table */}
+            <div className="excel-client-section">
+              <table className="excel-grid-table">
+                <tbody>
+                  <tr>
+                    <td className="excel-label" style={{ width: "15%" }}>
+                      Client Name
+                    </td>
+                    <td
+                      className="excel-value"
+                      colSpan="3"
+                      style={{ width: "50%" }}
+                    >
+                      {billToPrint.clientName}
+                    </td>
+                    <td className="excel-label" style={{ width: "15%" }}>
+                      Date
+                    </td>
+                    <td className="excel-value" style={{ width: "20%" }}>
+                      {formatDate(billToPrint.date)}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="excel-label">Mobile Number</td>
+                    <td className="excel-value" style={{ width: "18%" }}>
+                      {billToPrint.mobileNumber}
+                    </td>
+                    <td className="excel-label" style={{ width: "15%" }}>
+                      Address
+                    </td>
+                    <td className="excel-value" colSpan="3">
+                      {billToPrint.address || "—"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="excel-label">Vehicle Number</td>
+                    <td className="excel-value">{billToPrint.vehicleNumber}</td>
+                    <td className="excel-label">Vehicle Model</td>
+                    <td className="excel-value">
+                      {billToPrint.vehicleModel || "—"}
+                    </td>
+                    <td className="excel-label">Kilometer</td>
+                    <td className="excel-value">
+                      {billToPrint.kilometer || "—"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="excel-label">Eng. No.</td>
+                    <td className="excel-value">
+                      {billToPrint.engineNumber || "—"}
+                    </td>
+                    <td className="excel-label">Ch. No.</td>
+                    <td className="excel-value">
+                      {billToPrint.chassisNumber || "—"}
+                    </td>
+                    <td className="excel-label">Payment Type</td>
+                    <td className="excel-value" style={{ fontWeight: "bold" }}>
+                      {billToPrint.paymentMethod}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="excel-label" style={{ width: "15%" }}>
+                      Invoice No
+                    </td>
+                    <td className="excel-value" colSpan="5">
+                      {billToPrint.billNumber}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Items Table */}
+            <div className="excel-items-section">
+              <table className="excel-items-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: "40px", textAlign: "center" }}>No.</th>
+                    <th>Item Name</th>
+                    <th style={{ width: "80px", textAlign: "right" }}>Qty</th>
+                    <th style={{ width: "120px", textAlign: "right" }}>
+                      Spare Amount
+                    </th>
+                    <th style={{ width: "120px", textAlign: "right" }}>
+                      Labour
+                    </th>
+                    {/* <th style={{ width: "120px", textAlign: "right" }}>Total (₹)</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {(billToPrint.items || []).map((item, index) => (
+                    <tr key={index}>
+                      <td className="row-number">{index + 1}</td>
+                      <td style={{ padding: "6px 8px" }}>{item.itemName}</td>
+                      <td className="text-right" style={{ padding: "6px 8px" }}>
+                        {item.quantity}
+                      </td>
+                      <td className="text-right" style={{ padding: "6px 8px" }}>
+                        ₹{parseFloat(item.price || 0).toFixed(2)}
+                      </td>
+                      <td className="text-right" style={{ padding: "6px 8px" }}>
+                        ₹{parseFloat(item.labour || 0).toFixed(2)}
+                      </td>
+                      {/* <td className="item-total-cell text-right" style={{ padding: "6px 8px" }}>
                       ₹{parseFloat(item.total || 0).toFixed(2)}
                     </td> */}
-                  </tr>
-                ))}
-                
-                
-              </tbody>
-            </table>
-          </div>
-
-          {/* Grand Total */}
-          <div style={{display:"flex",justifyContent:"space-between"}}>
-              <span>Total Amount : ₹ {parseFloat(billToPrint.totalAmount || 0).toFixed(2)} </span>
-              <span>Payment Type:  {billToPrint.paymentMethod}</span>
-          </div>
-
-          <div style={{marginTop:"8px"}}>
-            Remark: ______________________________________________________________________________________________
-          </div>
-
-          {/* Print Footer / Signature */}
-          <div className="print-footer-simple">
-            <div className="terms-conditions-box">
-              <p className="terms-title">Terms & Conditions:</p>
-              <ol>
-                <li>I hereby authorise the above mentioned jobs to be executed using the required materials. Also that my vehicle will be stored, driven and repaired at my risk.</li>
-                <li>Computer generated copy and use only for the estimate purpose.</li>
-                <li>Please check the vehicle carefully before delivery acceptance. No claims will be accepted after the vehicle has been delivered.</li>
-              </ol>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div className="footer-right-signature">
-              <p className="thank-you-msg">Thank you for your business!</p>
-              <div className="signature-area-simple">
-                <div className="signature-line-simple"></div>
-                <p>Customer Signature</p>
+
+            {/* Grand Total */}
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span>
+                Total Amount : ₹{" "}
+                <span style={{color:'green'}}>{parseFloat(billToPrint.totalAmount || 0).toFixed(2)}{" "} </span>
+              </span>
+              {/* <span>Payment Type: {billToPrint.paymentMethod}</span> */}
+            </div>
+
+            <div style={{ marginTop: "8px" }}>
+              Remark:
+              ______________________________________________________________________________________________
+            </div>
+
+            {/* Print Footer / Signature */}
+            <div className="print-footer-simple">
+              <div className="terms-conditions-box">
+                <p className="terms-title">Terms & Conditions:</p>
+                <ol>
+                  <li>
+                    I hereby authorise the above mentioned jobs to be executed
+                    using the required materials. Also that my vehicle will be
+                    stored, driven and repaired at my risk.
+                  </li>
+                  <li>
+                    Computer generated copy and use only for the estimate
+                    purpose.
+                  </li>
+                  <li>
+                    Please check the vehicle carefully before delivery
+                    acceptance. No claims will be accepted after the vehicle has
+                    been delivered.
+                  </li>
+                </ol>
+              </div>
+              <div className="footer-right-signature">
+                <p className="thank-you-msg">Thank you for your business!</p>
+                <div className="signature-area-simple">
+                  <div className="signature-line-simple"></div>
+                  <p>Customer Signature</p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
