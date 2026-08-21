@@ -23,6 +23,7 @@ function BillingPage() {
   const [kilometer, setKilometer] = useState("");
   const [engineNumber, setEngineNumber] = useState("");
   const [chassisNumber, setChassisNumber] = useState("");
+  const [careOf, setCareOf] = useState("");
 
   // ── Date (auto-filled) ──
   const now = new Date();
@@ -151,6 +152,7 @@ function BillingPage() {
         vehicleModel: vehicleModel.trim(),
         engineNumber: engineNumber.trim(),
         chassisNumber: chassisNumber.trim(),
+        careOf:careOf.trim(),
       };
 
       if (existingClients && existingClients.length > 0) {
@@ -415,6 +417,19 @@ function BillingPage() {
                   </select>
                 </td>
               </tr>
+              <tr>
+                <td className="excel-label">Care Of: </td>
+                <td className="excel-value">
+                  <input
+                    id="careOf"
+                    type="text"
+                    placeholder="Enter Name"
+                    value={careOf}
+                    onChange={(e) => setCareOf(e.target.value)}
+                  />
+                </td>
+              </tr>
+               
             </tbody>
           </table>
         </div>

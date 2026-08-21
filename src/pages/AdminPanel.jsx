@@ -955,7 +955,7 @@ function AdminPanel() {
         }}
       >
         HASMUKH PATEL:{" "}
-        <span style={{ color: "#E31E24" }}>+91 99248 43345</span>
+        <span style={{ color: "#E31E24" }}>+91 HASMUKH PATEL</span>
       </div>
 
       <div
@@ -1068,9 +1068,12 @@ function AdminPanel() {
                     <td className="excel-value">
                       {billToPrint.chassisNumber || "—"}
                     </td>
-                    <td className="excel-label">Payment Type</td>
+                    <td className="excel-label">
+                      {/* Payment Type */}
+                      Care of
+                      </td>
                     <td className="excel-value" style={{ fontWeight: "bold" }}>
-                      {billToPrint.paymentMethod}
+                       {billToPrint.careOf} 
                     </td>
                   </tr>
                   <tr>
