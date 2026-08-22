@@ -253,8 +253,13 @@ function AdminPanel() {
       }
       // Payment Method Filter
       if (filterPayment !== "All") {
-        console.log("==========>", b.paymentMethod, filterPayment);
-        if (b.paymentMethod == "Pending") return false;
+        if (filterPayment === "Pending") {
+          // Show only pending payments
+          if (b.paymentMethod !== "Pending") return false;
+        } else if (filterPayment === "Received") {
+          // Show all received payments (UPI, Cash, Cheque)
+          if (b.paymentMethod === "Pending") return false;
+        }
       }
       // Start Date Filter
       if (filterStartDate) {
@@ -864,154 +869,154 @@ function AdminPanel() {
             </div>
           </div> */}
 
-           <div
-  style={{
-    width: "100%",
-    borderBottom: "3px solid #E31E24",
-    paddingBottom: "10px",
-    fontFamily: "Arial, sans-serif",
-  }}
->
-  {/* First Line - Logo + Company Name + Mobile */}
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      width: "100%",
-      minHeight: "75px",
-    }}
-  >
-    {/* Logo */}
-    <div
-      style={{
-        width: "120px",
-        minWidth: "120px",
-        textAlign: "center",
-        paddingTop:"50px"
-      }}
-    >
-      <img
-        src={"/logo.png"}
-        alt="SHREEJI MOTORS"
-        style={{
-          width: "105px",
-          height: "70px",
-          objectFit: "contain",
-        }}
-      />
-    </div>
+            <div
+              style={{
+                width: "100%",
+                borderBottom: "3px solid #E31E24",
+                paddingBottom: "10px",
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              {/* First Line - Logo + Company Name + Mobile */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  minHeight: "75px",
+                }}
+              >
+                {/* Logo */}
+                <div
+                  style={{
+                    width: "120px",
+                    minWidth: "120px",
+                    textAlign: "center",
+                    paddingTop: "50px",
+                  }}
+                >
+                  <img
+                    src={"/logo.png"}
+                    alt="SHREEJI MOTORS"
+                    style={{
+                      width: "105px",
+                      height: "70px",
+                      objectFit: "contain",
+                    }}
+                  />
+                </div>
 
-    {/* Company Name */}
-    <div
-      style={{
-        flex: 1,
-        textAlign: "left",
-        paddingLeft: "10px",
-      }}
-    >
-      <h1
-        style={{
-          margin: "0",
-          padding: "0",
-          fontSize: "30px",
-          fontWeight: "bold",
-          letterSpacing: "1.5px",
-          color: "#172B4D",
-          lineHeight: "1.2",
-        }}
-      >
-        SHREEJI <span style={{ color: "#E31E24" }}>MOTORS</span>
-      </h1>
+                {/* Company Name */}
+                <div
+                  style={{
+                    flex: 1,
+                    textAlign: "left",
+                    paddingLeft: "10px",
+                  }}
+                >
+                  <h1
+                    style={{
+                      margin: "0",
+                      padding: "0",
+                      fontSize: "30px",
+                      fontWeight: "bold",
+                      letterSpacing: "1.5px",
+                      color: "#172B4D",
+                      lineHeight: "1.2",
+                    }}
+                  >
+                    SHREEJI <span style={{ color: "#E31E24" }}>MOTORS</span>
+                  </h1>
 
-      <p
-        style={{
-          margin: "4px 0 0 0",
-          fontSize: "11px",
-          fontWeight: "bold",
-          letterSpacing: "0.5px",
-          color: "#555555",
-        }}
-      >
-        Complete Vehicle Care & Solutions
-      </p>
-    </div>
+                  <p
+                    style={{
+                      margin: "4px 0 0 0",
+                      fontSize: "11px",
+                      fontWeight: "bold",
+                      letterSpacing: "0.5px",
+                      color: "#555555",
+                    }}
+                  >
+                    Complete Vehicle Care & Solutions
+                  </p>
+                </div>
 
-    {/* Mobile Numbers */}
-    <div
-      style={{
-        width: "210px",
-        minWidth: "210px",
-        textAlign: "left",
-        borderLeft: "2px solid #E31E24",
-        paddingLeft: "12px",
-      }}
-    >
-      <div
-        style={{
-          fontSize: "11px",
-          fontWeight: "bold",
-          color: "#172B4D",
-          marginBottom: "6px",
-        }}
-      >
-        HASMUKH PATEL:{" "}
-        <span style={{ color: "#E31E24" }}>+91 HASMUKH PATEL</span>
-      </div>
+                {/* Mobile Numbers */}
+                <div
+                  style={{
+                    width: "210px",
+                    minWidth: "210px",
+                    textAlign: "left",
+                    borderLeft: "2px solid #E31E24",
+                    paddingLeft: "12px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: "bold",
+                      color: "#172B4D",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    HASMUKH PATEL:{" "}
+                    <span style={{ color: "#E31E24" }}>+91 HASMUKH PATEL</span>
+                  </div>
 
-      <div
-        style={{
-          fontSize: "11px",
-          fontWeight: "bold",
-          color: "#172B4D",
-        }}
-      >
-        SHASHIKANT LAD:{" "}
-        <span style={{ color: "#E31E24" }}>+91 97143 16888</span>
-      </div>
-    </div>
-  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: "bold",
+                      color: "#172B4D",
+                    }}
+                  >
+                    SHASHIKANT LAD:{" "}
+                    <span style={{ color: "#E31E24" }}>+91 97143 16888</span>
+                  </div>
+                </div>
+              </div>
 
-  {/* Second Line - Address starts after Logo */}
-  <div
-    style={{
-      display: "flex",
-      width: "100%",
-      marginTop: "4px",
-    }}
-  >
-    {/* Empty space equal to Logo width */}
-    <div
-      style={{
-        width: "120px",
-        minWidth: "120px",
-      }}
-    ></div>
+              {/* Second Line - Address starts after Logo */}
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  marginTop: "4px",
+                }}
+              >
+                {/* Empty space equal to Logo width */}
+                <div
+                  style={{
+                    width: "120px",
+                    minWidth: "120px",
+                  }}
+                ></div>
 
-    {/* Address */}
-    <div
-      style={{
-        flex: 1,
-        paddingLeft: "10px",
-        paddingTop: "5px",
-        borderTop: "1px solid #D9D9D9",
-        fontSize: "9px",
-        lineHeight: "1.5  ",
-        color: "#444444",
-      }}
-    >
-      <span
-        style={{
-          fontWeight: "bold",
-          color: "#E31E24",
-        }}
-      >
-        ADDRESS:
-      </span>{" "}
-      33-A, Shop No. S-9, Ravi Apartment, Opp. Swastik Park,
-      Althan-Bhatar Road, Surat – 395017, Gujarat, India
-    </div>
-  </div>
-</div>
+                {/* Address */}
+                <div
+                  style={{
+                    flex: 1,
+                    paddingLeft: "10px",
+                    paddingTop: "5px",
+                    borderTop: "1px solid #D9D9D9",
+                    fontSize: "9px",
+                    lineHeight: "1.5  ",
+                    color: "#444444",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      color: "#E31E24",
+                    }}
+                  >
+                    ADDRESS:
+                  </span>{" "}
+                  33-A, Shop No. S-9, Ravi Apartment, Opp. Swastik Park,
+                  Althan-Bhatar Road, Surat – 395017, Gujarat, India
+                </div>
+              </div>
+            </div>
 
             {/* Client Details / Metadata Table */}
             <div className="excel-client-section">
@@ -1071,9 +1076,9 @@ function AdminPanel() {
                     <td className="excel-label">
                       {/* Payment Type */}
                       Care of
-                      </td>
+                    </td>
                     <td className="excel-value" style={{ fontWeight: "bold" }}>
-                       {billToPrint.careOf} 
+                      {billToPrint.careOf}
                     </td>
                   </tr>
                   <tr>
@@ -1132,7 +1137,9 @@ function AdminPanel() {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <span>
                 Total Amount : ₹{" "}
-                <span style={{color:'green'}}>{parseFloat(billToPrint.totalAmount || 0).toFixed(2)}{" "} </span>
+                <span style={{ color: "green" }}>
+                  {parseFloat(billToPrint.totalAmount || 0).toFixed(2)}{" "}
+                </span>
               </span>
               {/* <span>Payment Type: {billToPrint.paymentMethod}</span> */}
             </div>
