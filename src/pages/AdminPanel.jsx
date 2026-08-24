@@ -70,6 +70,7 @@ function AdminPanel() {
         vehicleModel: b.clients?.vehicleModel || "",
         engineNumber: b.clients?.engineNumber || "",
         chassisNumber: b.clients?.chassisNumber || "",
+        careOf:b.careOf||"",
       }));
 
       setBills(flattened);
@@ -165,6 +166,7 @@ function AdminPanel() {
         .from("bills")
         .update({
           kilometer: kilometer?.trim(),
+          careOf:careOf.trim(),
           paymentMethod,
         })
         .eq("billId", billId)

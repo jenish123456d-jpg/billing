@@ -152,7 +152,7 @@ function BillingPage() {
         vehicleModel: vehicleModel.trim(),
         engineNumber: engineNumber.trim(),
         chassisNumber: chassisNumber.trim(),
-        careOf:careOf.trim(),
+        
       };
 
       if (existingClients && existingClients.length > 0) {
@@ -181,6 +181,7 @@ function BillingPage() {
         date,
         time: "",
         kilometer: kilometer.trim(),
+        careOf:careOf.trim(),
         items: items
           .filter((i) => i.itemName.trim())
           .map((i) => ({
