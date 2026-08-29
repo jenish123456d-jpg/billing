@@ -488,6 +488,9 @@ function AdminPanel() {
                 <th onClick={() => handleSort("paymentMethod")}>
                   Payment {renderSortIcon("paymentMethod")}
                 </th>
+                <th onClick={() => handleSort("careOf")}>
+                  Care of {renderSortIcon("careOf")}
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -509,7 +512,18 @@ function AdminPanel() {
                       className={`payment-badge ${getPaymentBadge(bill.paymentMethod)}`}
                     >
                       {bill.paymentMethod}
+                      
                     </span>
+                    
+                  </td>
+                  <td>
+                    <span
+                      
+                    >
+                      {bill?.careOf}
+                      
+                    </span>
+                    
                   </td>
                   <td>
                     <div className="action-btns">
@@ -962,7 +976,7 @@ function AdminPanel() {
                     }}
                   >
                     HASMUKH PATEL:{" "}
-                    <span style={{ color: "#E31E24" }}>+91 HASMUKH PATEL</span>
+                    <span style={{ color: "#E31E24" }}>+919924543345</span>
                   </div>
 
                   <div
@@ -1001,9 +1015,9 @@ function AdminPanel() {
                     paddingLeft: "10px",
                     paddingTop: "5px",
                     borderTop: "1px solid #D9D9D9",
-                    fontSize: "9px",
                     lineHeight: "1.5  ",
                     color: "#444444",
+                    fontSize: "12px",
                   }}
                 >
                   <span
@@ -1075,22 +1089,29 @@ function AdminPanel() {
                     <td className="excel-value">
                       {billToPrint.chassisNumber || "—"}
                     </td>
+
                     <td className="excel-label">
-                      {/* Payment Type */}
+                      Invoice No
+                    </td>
+                    <td className="excel-value" style={{ fontWeight: "bold" }}>
+                      {billToPrint.billNumber}
+                      
+                    </td>
+                    {/* <td className="excel-label">
                       Care of
                     </td>
                     <td className="excel-value" style={{ fontWeight: "bold" }}>
                       {billToPrint.careOf}
-                    </td>
+                    </td> */}
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td className="excel-label" style={{ width: "15%" }}>
                       Invoice No
                     </td>
                     <td className="excel-value" colSpan="5">
                       {billToPrint.billNumber}
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
