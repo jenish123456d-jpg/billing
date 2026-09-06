@@ -166,7 +166,6 @@ function AdminPanel() {
         .from("bills")
         .update({
           kilometer: kilometer?.trim(),
-          careOf:careOf.trim(),
           paymentMethod,
         })
         .eq("billId", billId)
