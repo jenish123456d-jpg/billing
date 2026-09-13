@@ -22,7 +22,7 @@ function AdminPanel() {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterPayment, setFilterPayment] = useState("All");
+  const [filterPayment, setFilterPayment] = useState("Pending ");
   const [filterStartDate, setFilterStartDate] = useState("");
   const [filterEndDate, setFilterEndDate] = useState("");
   const [selectedBill, setSelectedBill] = useState(null);
@@ -143,6 +143,7 @@ function AdminPanel() {
         chassisNumber,
         kilometer,
         paymentMethod,
+        careOf,
       } = editingBill;
 
       // Update client profile in Supabase
@@ -167,6 +168,7 @@ function AdminPanel() {
         .update({
           kilometer: kilometer?.trim(),
           paymentMethod,
+          careOf: careOf?.trim(),
         })
         .eq("billId", billId)
         .select();
@@ -582,7 +584,7 @@ function AdminPanel() {
             <div className="modal-body">
               <div className="detail-grid">
                 <div className="detail-item">
-                  <span className="detail-label">Client Name</span>
+                  <span className="detail-label">Customer Name</span>
                   <span className="detail-value">
                     {selectedBill.clientName}
                   </span>
@@ -719,7 +721,7 @@ function AdminPanel() {
             <div className="modal-body">
               <div className="edit-grid">
                 <div className="form-group">
-                  <label>Client Name</label>
+                  <label>Customer Name</label>
                   <input
                     type="text"
                     value={editingBill.clientName || ""}
@@ -822,8 +824,23 @@ function AdminPanel() {
                     }
                   />
                 </div>
+                
                 <div className="form-group">
-                  <label>Payment =Type</label>
+                  <label>Car of.</label>
+                  <input
+                    type="text"
+                    value={editingBill.carOf || ""}
+                    onChange={(e) =>
+                      setEditingBill({
+                        ...editingBill,
+                        carOf: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Payment Type</label>
                   <select
                     value={editingBill.paymentMethod || "Cash"}
                     onChange={(e) =>
@@ -1039,7 +1056,7 @@ function AdminPanel() {
                 <tbody>
                   <tr>
                     <td className="excel-label" style={{ width: "15%" }}>
-                      Client Name
+                      Customer Name
                     </td>
                     <td
                       className="excel-value"
